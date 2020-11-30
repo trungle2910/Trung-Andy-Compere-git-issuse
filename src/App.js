@@ -49,37 +49,37 @@ function App() {
     setUrlFetchComments(url);
   };
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      if (!urlFetchComments && !showModal) return;
-      setLoadingComments(true);
-      try {
-        const response = await fetch(urlFetchComments);
-        const data = await response.json();
-        if (response.status === 200) {
-          const link = response.headers.get("link");
-          if (link) {
-            const getTotalPage = link.match(
-              /page=(\d+)&per_page=\d+>; rel="last"/
-            );
-            if (getTotalPage) {
-              setCommentTotalPageNum(parseInt(getTotalPage[1]));
-            }
-          }
-          setComments((c) => [...c, ...data]);
-          setErrorMessage(null);
-        } else {
-          setErrorMessage(`FETCH COMMENTS ERROR: ${data.message}`);
-          setShowModal(false);
-        }
-      } catch (error) {
-        setErrorMessage(`FETCH COMMENTS ERROR: ${error.message}`);
-        setShowModal(false);
-      }
-      setLoadingComments(false);
-    };
-    fetchComments();
-  }, [urlFetchComments, showModal]);
+  // useEffect(() => {
+  //   const fetchComments = async () => {
+  //     if (!urlFetchComments && !showModal) return;
+  //     setLoadingComments(true);
+  //     try {
+  //       const response = await fetch(urlFetchComments);
+  //       const data = await response.json();
+  //       if (response.status === 200) {
+  //         const link = response.headers.get("link");
+  //         if (link) {
+  //           const getTotalPage = link.match(
+  //             /page=(\d+)&per_page=\d+>; rel="last"/
+  //           );
+  //           if (getTotalPage) {
+  //             setCommentTotalPageNum(parseInt(getTotalPage[1]));
+  //           }
+  //         }
+  //         setComments((c) => [...c, ...data]);
+  //         setErrorMessage(null);
+  //       } else {
+  //         setErrorMessage(`FETCH COMMENTS ERROR: ${data.message}`);
+  //         setShowModal(false);
+  //       }
+  //     } catch (error) {
+  //       setErrorMessage(`FETCH COMMENTS ERROR: ${error.message}`);
+  //       setShowModal(false);
+  //     }
+  //     setLoadingComments(false);
+  //   };
+  //   fetchComments();
+  // }, [urlFetchComments, showModal]);
 
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
